@@ -47,7 +47,7 @@ def GenerateConfig(context):
               'sourceRanges': ["0.0.0.0/0"],
               'allowed': [{
                 'IPProtocol': 'TCP',
-                'ports': ["80"]    
+                'ports': ["8000"]    
               }]
             }
           }],

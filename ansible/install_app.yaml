@@ -1,0 +1,46 @@
+- hosts: tag_ansible
+  sudo: True
+  tasks:
+  - name: Install Git
+    apt:
+      name: git-all
+      state: latest
+  - name: Download Golang
+    become: yes
+    get_url:
+      url: "https://storage.googleapis.com/golang/go1.8.1.linux-amd64.tar.gz"
+      dest: "/root/go.tar.gz"
+  - name: Unarchive Golang to installation directory
+    become: yes
+    unarchive:
+      src: "/root/go.tar.gz"
+      dest: "/usr/local"
+      owner: root
+      group: root
+      copy: no
+      creates: "/usr/local/go"
+  - name: Add Go to PATH
+    become: yes
+    lineinfile:
+      dest: /etc/profile
+      line: "export PATH=$PATH:/usr/local/go/bin"
+  - name: Copy app to remote host
+    copy:
+      src: ./app/
+      dest: /opt/go/src/dives
+  - name: Install app dependencies
+    become: yes
+    shell: GOPATH=/opt/go /usr/local/go/bin/go get ./...
+    args:
+      chdir: /opt/go/src/dives
+  - name: Compile app
+    become: yes
+    shell: GOPATH=/opt/go /usr/local/go/bin/go install
+    args:
+      chdir: /opt/go/src/dives
+      creates: /opt/go/bin/dives
+  - name: Run Go app! (passing key from file as argument)
+    become: yes
+    shell: GOPATH=/opt/go /usr/local/go/bin/go run main.go geolocation.go $(cat mapsapiKey)
+    args:
+      chdir: /opt/go/src/dives
