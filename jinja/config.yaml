@@ -1,0 +1,10 @@
+imports:
+- path: instance.jinja
+
+resources:
+- name: simple-instance
+  type: instance.jinja
+  properties:
+    zone: europe-west1-b
+    machineType: n1-standard-1
+    image: family/debian-9

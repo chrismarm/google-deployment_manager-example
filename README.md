@@ -4,6 +4,8 @@ To start the deployment of the instance with Deployment Manager
 
 ```sh
 $ gcloud deployment-manager deployments create exampledeployment --config python/config.yaml
+# Or with jinja instead of Python
+gcloud deployment-manager deployments create exampledeployment --config jinja/config.yaml
 ```
 
 To delete the deployment
@@ -35,6 +37,5 @@ The `Ansible` playbook installs Git and Golang, copies the sample app to the rem
 
 ### TODOs
 
-* `Jinja` to define resources
 * Define other GCP elements like VP, subnets, non-boot disks with size/images, tags for instances, etc
 

@@ -1,0 +1,23 @@
+info:
+  title: GCE Compute Instance as an example
+  author: Christian Marmolejo
+  description: Creates a simple VM as an example of use for Deployment Manager
+  version: 0.1
+
+required:
+- zone
+- image
+- machineType
+
+properties:
+  zone:
+    type: string
+    description: an array of zones which indicates the zones in which the current and new versions are to be deployed
+
+  image:
+    type: string
+    description: a fully qualified url to the vm image to use
+
+  machineType:
+    type: string
+    default: n1-standard-1
