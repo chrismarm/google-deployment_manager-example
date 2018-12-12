@@ -26,21 +26,21 @@
       line: "export PATH=$PATH:/usr/local/go/bin"
   - name: Copy app to remote host
     copy:
-      src: ./app/
-      dest: /opt/go/src/dives
+      src: ./metadata/
+      dest: /opt/go/src/metadata
   - name: Install app dependencies
     become: yes
     shell: GOPATH=/opt/go /usr/local/go/bin/go get ./...
     args:
-      chdir: /opt/go/src/dives
+      chdir: /opt/go/src/metadata
   - name: Compile app
     become: yes
     shell: GOPATH=/opt/go /usr/local/go/bin/go install
     args:
-      chdir: /opt/go/src/dives
-      creates: /opt/go/bin/dives
+      chdir: /opt/go/src/metadata
+      creates: /opt/go/bin/metadata
   - name: Run Go app! (passing key from file as argument)
     become: yes
-    shell: GOPATH=/opt/go /usr/local/go/bin/go run main.go geolocation.go $(cat mapsapiKey)
+    shell: GOPATH=/opt/go /usr/local/go/bin/go run main.go $(cat mapsKey)
     args:
-      chdir: /opt/go/src/dives
+      chdir: /opt/go/src/metadata

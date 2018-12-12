@@ -13,6 +13,9 @@ def GenerateConfig(context):
   instance = {
       'zone': zone,
       'machineType': GetUrlZones(project, zone, 'machineTypes', machine),
+      'tags': {
+        'items': ["ansible"]
+      },
       'disks': [{
           'deviceName': 'boot',
           'type': 'PERSISTENT',

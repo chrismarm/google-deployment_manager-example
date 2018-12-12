@@ -11,6 +11,8 @@ resources:
   properties:
     zone: {{ ZONE }}
     machineType: {{ COMPUTE_URL_BASE }}projects/{{ PROJECT }}/zones/{{ ZONE }}/machineTypes/{{ MACHINETYPE }}
+    tags:
+      items: ["ansible"]
     disks:
     - deviceName: boot
       type: PERSISTENT
